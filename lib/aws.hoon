@@ -1,5 +1,5 @@
-=,  scr:crypto
-|_  [reg=@t secret=@t key=@t now=@da]
+=,  hmac:crypto
+|_  [reg=@t op=@t secret=@t key=@t now=@da]
 +$  purl  purl:eyre
 ::  ++ auth will apply all required headers for signature v4 to
 ::  whatever request you pass it
@@ -79,17 +79,17 @@
 ++  sign
   |=  deal=@t
   %+  en:base16:mimes:html  32 
-  (hmc signer deal)
+  (hmac-sha256 signer (swp 3 deal))
 ++  signer
-  %+  hmc
-    %+  hmc
-      %+  hmc
-        %+  hmc
+  %+  hmac-sha256
+    %+  hmac-sha256
+      %+  hmac-sha256
+        %+  hmac-sha256t
           (crip (weld "AWS4" (trip secret)))
         (crip cal)
-      reg
-    's3'
-  'aws4_request'
+      (swp 3 reg)
+    (swp 3 op)
+  (swp 3 'aws4_request')
 ++  contract
   |=  [=request:http digest=@t]
   ^-  @t
@@ -113,7 +113,7 @@
     ^-  (list @t)
     :~  (crip cal)
         reg
-        's3'
+        op
         'aws4_request'
     ==  
 ++  canonical

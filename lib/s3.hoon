@@ -2,7 +2,7 @@
 =,  scr:crypto
 |_  [endpoint=@t reg=@t secret=@t key=@t now=@da]
 +$  purl  purl:eyre
-++  aws-client  ~(. aws [reg secret key now])
+++  aws-client  ~(. aws [reg 's3' secret key now])
 ::  a minimal support version of ListObjectsV2
 ::  https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
 ++  s3-list-objects-v2
